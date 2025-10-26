@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bảng tuần hoàn số - Tương tác (118 nguyên tố) - Phiên bản CSS-only</title>
+<style>
+  :root{
+    --bg:#f6f9ff; --card:#fff; --accent:#164e9b;
+    --metal:#4f46e5; --metalloid:#10b981; --nonmetal:#ef4444; --noble:#f59e0b; --other:#6b7280;
+    --cell-w:58px; --gap:6px; font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  }
+  body{background:var(--bg); margin:0; padding:18px; color:#0f172a}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  h1{font-size:20px;margin:0;color:var(--accent)}
+  .container{display:flex;gap:16px;flex-wrap:wrap}
+  .board{background:var(--card);border-radius:12px;padding:14px;box-shadow:0 8px 30px rgba(15,23,42,0.06)}
+  .grid{display:grid;grid-template-columns:repeat(18,var(--cell-w));gap:var(--gap);width:100%;}
+  .cell{width:var(--cell-w);height:var(--cell-w);background:#eef2ff;border-radius:8px;border:1px solid rgba(15,23,42,0.04);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;cursor:default}
+  .sym{font-weight:700;font-size:15px}
+  .num{position:absolute;top:6px;left:6px;font-size:10px;color:#444}
+  /* tooltip box */
+  .tooltip{display:none;position:absolute;left:calc(100% + 10px);top:0;background:var(--card);border-radius:8px;padding:10px;min-width:260px;box-shadow:0 12px 30px rgba(2,6,23,0.12);z-index:50;text-align:left;border:1px solid rgba(2,6,23,0.04)}
+  .cell:focus-within .tooltip, .cell:hover .tooltip{display:block}
+  .tip h3{margin:0 0 6px 0;font-size:14px;color:var(--accent)}
+  .tip p{margin:4px 0;font-size:13px;color:#111}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .badge{padding:6px 8px;border-radius:8px;color:#fff;font-size:13px}
+  .metal{background:var(--metal)}.metalloid{background:var(--metalloid)}.nonmetal{background:var(--nonmetal)}.noble{background:var(--noble)}.other{background:var(--other)}
+  /* responsive */
+  @media(max-width:1000px){:root{--cell-w:44px} .tooltip{left:auto;right:0}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Bảng tuần hoàn số – Tương tác (CSS-only) — 118 nguyên tố</h1>
+  <div style="font-size:13px;color:#334155">Di chuột (hoặc Tab) vào ô để xem chi tiết</div>
+</header>
+<div class="container">
+  <div class="board" style="flex:1;min-width:760px;">
+    <div class="grid" id="ptable">
+
+      <!-- Period 1 -->
+      <div class="cell" style="grid-column:1"><div class="num">1</div><div class="sym">H</div>
+        <div class="tooltip tip"><h3>Hiđrô (H)</h3><p><b>Z:</b> 1</p><p><b>Cấu hình e:</b> 1s¹</p><p><b>Loại:</b> Phi kim</p></div></div>
+      <div style="grid-column:2"></div>
+      <div style="grid-column:3"></div>
+      <div style="grid-column:4"></div>
+      <div style="grid-column:5"></div>
+      <div style="grid-column:6"></div>
+      <div style="grid-column:7"></div>
+      <div style="grid-column:8"></div>
+      <div style="grid-column:9"></div>
+      <div style="grid-column:10"></div>
+      <div style="grid-column:11"></div>
+      <div style="grid-column:12"></div>
+      <div style="grid-column:13"></div>
+      <div style="grid-column:14"></div>
+      <div style="grid-column:15"></div>
+      <div style="grid-column:16"></div>
+      <div style="grid-column:17"></div>
+      <div class="cell" style="grid-column:18"><div class="num">2</div><div class="sym">He</div>
+        <div class="tooltip tip"><h3>Hêli (He)</h3><p><b>Z:</b> 2</p><p><b>Cấu hình e:</b> 1s²</p><p><b>Loại:</b> Khí hiếm</p></div></div>
+
+      <!-- Period 2 -->
+      <div class="cell" style="grid-column:1;grid-row:2"><div class="num">3</div><div class="sym">Li</div>
+        <div class="tooltip tip"><h3>Liti (Li)</h3><p><b>Z:</b> 3</p><p><b>Cấu hình e:</b> 1s² 2s¹</p><p><b>Loại:</b> Kim loại kiềm</p></div></div>
+      <div class="cell" style="grid-column:2;grid-row:2"><div class="num">4</div><div class="sym">Be</div>
+        <div class="tooltip tip"><h3>Beri (Be)</h3><p><b>Z:</b> 4</p><p><b>Cấu hình e:</b> 1s² 2s²</p><p><b>Loại:</b> Kim loại kiềm thổ</p></div></div>
+      <div style="grid-column:3;grid-row:2"></div>
+      <div style="grid-column:4;grid-row:2"></div>
+      <div style="grid-column:5;grid-row:2"></div>
+      <div style="grid-column:6;grid-row:2"></div>
+      <div style="grid-column:7;grid-row:2"></div>
+      <div style="grid-column:8;grid-row:2"></div>
+      <div style="grid-column:9;grid-row:2"></div>
+      <div style="grid-column:10;grid-row:2"></div>
+      <div style="grid-column:11;grid-row:2"></div>
+      <div style="grid-column:12;grid-row:2"></div>
+      <div class="cell" style="grid-column:13;grid-row:2"><div class="num">5</div><div class="sym">B</div>
+        <div class="tooltip tip"><h3>Bo (B)</h3><p><b>Z:</b> 5</p><p><b>Cấu hình e:</b> 1s² 2s² 2p¹</p><p><b>Loại:</b> Bán kim</p></div></div>
+      <div class="cell" style="grid-column:14;grid-row:2"><div class="num">6</div><div class="sym">C</div>
+        <div class="tooltip tip"><h3>Cacbon (C)</h3><p><b>Z:</b> 6</p><p><b>Cấu hình e:</b> 1s² 2s² 2p²</p><p><b>Loại:</b> Phi kim</p></div></div>
+      <div class="cell" style="grid-column:15;grid-row:2"><div class="num">7</div><div class="sym">N</div>
+        <div class="tooltip tip"><h3>Nitơ (N)</h3><p><b>Z:</b> 7</p><p><b>Cấu hình e:</b> 1s² 2s² 2p³</p><p><b>Loại:</b> Phi kim</p></div></div>
+      <div class="cell" style="grid-column:16;grid-row:2"><div class="num">8</div><div class="sym">O</div>
+        <div class="tooltip tip"><h3>Oxi (O)</h3><p><b>Z:</b> 8</p><p><b>Cấu hình e:</b> 1s² 2s² 2p⁴</p><p><b>Loại:</b> Phi kim</p></div></div>
+      <div class="cell" style="grid-column:17;grid-row:2"><div class="num">9</div><div class="sym">F</div>
+        <div class="tooltip tip"><h3>Flo (F)</h3><p><b>Z:</b> 9</p><p><b>Cấu hình e:</b> 1s² 2s² 2p⁵</p><p><b>Loại:</b> Halogen (phi kim)</p></div></div>
+      <div class="cell" style="grid-column:18;grid-row:2"><div class="num">10</div><div class="sym">Ne</div>
+        <div class="tooltip tip"><h3>Neon (Ne)</h3><p><b>Z:</b> 10</p><p><b>Cấu hình e:</b> 1s² 2s² 2p⁶</p><p><b>Loại:</b> Khí hiếm</p></div></div>
+
+      <!-- Period 3 -->
+      <div class="cell" style="grid-column:1;grid-row:3"><div class="num">11</div><div class="sym">Na</div>
+        <div class="tooltip tip"><h3>Natri (Na)</h3><p><b>Z:</b> 11</p><p><b>Cấu hình e:</b> [Ne] 3s¹</p><p><b>Loại:</b> Kim loại kiềm</p></div></div>
+      <div class="cell" style="grid-column:2;grid-row:3"><div class="num">12</div><div class="sym">Mg</div>
+        <div class="tooltip tip"><h3>Magie (Mg)</h3><p><b>Z:</b> 12</p><p><b>Cấu hình e:</b> [Ne] 3s²</p><p><b>Loại:</b> Kim loại kiềm thổ</p></div></div>
+      <div style="grid-column:3;grid-row:3"></div>
+      <div style="grid-column:4;grid-row:3"></div>
+      <div style="grid-column:5;grid-row:3"></div>
+      <div style="grid-column:6;grid-row:3"></div>
+      <div style="grid-column:7;grid-row:3"></div>
+      <div style="grid-column:8;grid-row:3"></div>
+      <div style="grid-column:9;grid-row:3"></div>
+      <div style="grid-column:10;grid-row:3"></div>
+      <div style="grid-column:11;grid-row:3"></div>
+      <div style="grid-column:12;grid-row:3"></div>
+      <div class="cell" style="grid-column:13;grid-row:3"><div class="num">13</div><div class="sym">Al</div>
+        <div class="tooltip tip"><h3>Nhôm (Al)</h3><p><b>Z:</b> 13</p><p><b>Cấu hình e:</b> [Ne] 3s² 3p¹</p><p><b>Loại:</b> Kim loại</p></div></div>
+      <div class="cell" style="grid-column:14;grid-row:3"><div class="num">14</div><div class="sym">Si</div>
+        <div class="tooltip tip"><h3>Silic (Si)</h3><p><b>Z:</b> 14</p><p><b>Cấu hình e:</b> [Ne] 3s² 3p²</p><p><b>Loại:</b> Bán kim</p></div></div>
+      <div class="cell" style="grid-column:15;grid-row:3"><div class="num">15</div><div class="sym">P</div>
+        <div class="tooltip tip"><h3>Photpho (P)</h3><p><b>Z:</b> 15</p><p><b>Cấu hình e:</b> [Ne] 3s² 3p³</p><p><b>Loại:</b> Phi kim</p></div></div>
+      <div class="cell" style="grid-column:16;grid-row:3"><div class="num">16</div><div class="sym">S</div>
+        <div class="tooltip tip"><h3>Lưu huỳnh (S)</h3><p><b>Z:</b> 16</p><p><b>Cấu hình e:</b> [Ne] 3s² 3p⁴</p><p><b>Loại:</b> Phi kim</p></div></div>
+      <div class="cell" style="grid-column:17;grid-row:3"><div class="num">17</div><div class="sym">Cl</div>
+        <div class="tooltip tip"><h3>Clo (Cl)</h3><p><b>Z:</b> 17</p><p><b>Cấu hình e:</b> [Ne] 3s² 3p⁵</p><p><b>Loại:</b> Halogen</p></div></div>
+      <div class="cell" style="grid-column:18;grid-row:3"><div class="num">18</div><div class="sym">Ar</div>
+        <div class="tooltip tip"><h3>Argon (Ar)</h3><p><b>Z:</b> 18</p><p><b>Cấu hình e:</b> [Ne] 3s² 3p⁶</p><p><b>Loại:</b> Khí hiếm</p></div></div>
+
+      <!-- Period 4 -->
+      <div class="cell" style="grid-column:1;grid-row:4"><div class="num">19</div><div class="sym">K</div>
+        <div class="tooltip tip"><h3>Kali (K)</h3><p><b>Z:</b> 19</p><p><b>Cấu hình e:</b> [Ar] 4s¹</p><p><b>Loại:</b> Kim loại kiềm</p></div></div>
+      <div class="cell" style="grid-column:2;grid-row:4"><div class="num">20</div><div class="sym">Ca</div>
+        <div class="tooltip tip"><h3>Canxi (Ca)</h3><p><b>Z:</b> 20</p><p><b>Cấu hình e:</b> [Ar] 4s²</p><p><b>Loại:</b> Kim loại kiềm thổ</p></div></div>
+      <div class="cell" style="grid-column:3;grid-row:4"><div class="num">21</div><div class="sym">Sc</div>
+        <div class="tooltip tip"><h3>Scandi (Sc)</h3><p><b>Z:</b> 21</p><p><b>Cấu hình e:</b> [Ar] 3d¹ 4s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:4;grid-row:4"><div class="num">22</div><div class="sym">Ti</div>
+        <div class="tooltip tip"><h3>Titan (Ti)</h3><p><b>Z:</b> 22</p><p><b>Cấu hình e:</b> [Ar] 3d² 4s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:5;grid-row:4"><div class="num">23</div><div class="sym">V</div>
+        <div class="tooltip tip"><h3>Vanadi (V)</h3><p><b>Z:</b> 23</p><p><b>Cấu hình e:</b> [Ar] 3d³ 4s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:6;grid-row:4"><div class="num">24</div><div class="sym">Cr</div>
+        <div class="tooltip tip"><h3>Crom (Cr)</h3><p><b>Z:</b> 24</p><p><b>Cấu hình e:</b> [Ar] 3d⁵ 4s¹</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:7;grid-row:4"><div class="num">25</div><div class="sym">Mn</div>
+        <div class="tooltip tip"><h3>Mangan (Mn)</h3><p><b>Z:</b> 25</p><p><b>Cấu hình e:</b> [Ar] 3d⁵ 4s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:8;grid-row:4"><div class="num">26</div><div class="sym">Fe</div>
+        <div class="tooltip tip"><h3>Sắt (Fe)</h3><p><b>Z:</b> 26</p><p><b>Cấu hình e:</b> [Ar] 3d⁶ 4s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:9;grid-row:4"><div class="num">27</div><div class="sym">Co</div>
+        <div class="tooltip tip"><h3>Coban (Co)</h3><p><b>Z:</b> 27</p><p><b>Cấu hình e:</b> [Ar] 3d⁷ 4s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:10;grid-row:4"><div class="num">28</div><div class="sym">Ni</div>
+        <div class="tooltip tip"><h3>Niken (Ni)</h3><p><b>Z:</b> 28</p><p><b>Cấu hình e:</b> [Ar] 3d⁸ 4s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:11;grid-row:4"><div class="num">29</div><div class="sym">Cu</div>
+        <div class="tooltip tip"><h3>Đồng (Cu)</h3><p><b>Z:</b> 29</p><p><b>Cấu hình e:</b> [Ar] 3d¹⁰ 4s¹</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:12;grid-row:4"><div class="num">30</div><div class="sym">Zn</div>
+        <div class="tooltip tip"><h3>Kẽm (Zn)</h3><p><b>Z:</b> 30</p><p><b>Cấu hình e:</b> [Ar] 3d¹⁰ 4s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:13;grid-row:4"><div class="num">31</div><div class="sym">Ga</div>
+        <div class="tooltip tip"><h3>Gali (Ga)</h3><p><b>Z:</b> 31</p><p><b>Cấu hình e:</b> [Ar] 3d¹⁰ 4s² 4p¹</p><p><b>Loại:</b> Kim loại</p></div></div>
+      <div class="cell" style="grid-column:14;grid-row:4"><div class="num">32</div><div class="sym">Ge</div>
+        <div class="tooltip tip"><h3>Gecmani (Ge)</h3><p><b>Z:</b> 32</p><p><b>Cấu hình e:</b> [Ar] 3d¹⁰ 4s² 4p²</p><p><b>Loại:</b> Bán kim</p></div></div>
+      <div class="cell" style="grid-column:15;grid-row:4"><div class="num">33</div><div class="sym">As</div>
+        <div class="tooltip tip"><h3>Asen (As)</h3><p><b>Z:</b> 33</p><p><b>Cấu hình e:</b> [Ar] 3d¹⁰ 4s² 4p³</p><p><b>Loại:</b> Bán kim</p></div></div>
+      <div class="cell" style="grid-column:16;grid-row:4"><div class="num">34</div><div class="sym">Se</div>
+        <div class="tooltip tip"><h3>Selen (Se)</h3><p><b>Z:</b> 34</p><p><b>Cấu hình e:</b> [Ar] 3d¹⁰ 4s² 4p⁴</p><p><b>Loại:</b> Phi kim</p></div></div>
+      <div class="cell" style="grid-column:17;grid-row:4"><div class="num">35</div><div class="sym">Br</div>
+        <div class="tooltip tip"><h3>Brom (Br)</h3><p><b>Z:</b> 35</p><p><b>Cấu hình e:</b> [Ar] 3d¹⁰ 4s² 4p⁵</p><p><b>Loại:</b> Halogen</p></div></div>
+      <div class="cell" style="grid-column:18;grid-row:4"><div class="num">36</div><div class="sym">Kr</div>
+        <div class="tooltip tip"><h3>Kripton (Kr)</h3><p><b>Z:</b> 36</p><p><b>Cấu hình e:</b> [Ar] 3d¹⁰ 4s² 4p⁶</p><p><b>Loại:</b> Khí hiếm</p></div></div>
+
+      <!-- Period 5 -->
+      <div class="cell" style="grid-column:1;grid-row:5"><div class="num">37</div><div class="sym">Rb</div>
+        <div class="tooltip tip"><h3>Rubidi (Rb)</h3><p><b>Z:</b> 37</p><p><b>Cấu hình e:</b> [Kr] 5s¹</p><p><b>Loại:</b> Kim loại kiềm</p></div></div>
+      <div class="cell" style="grid-column:2;grid-row:5"><div class="num">38</div><div class="sym">Sr</div>
+        <div class="tooltip tip"><h3>Stronci (Sr)</h3><p><b>Z:</b> 38</p><p><b>Cấu hình e:</b> [Kr] 5s²</p><p><b>Loại:</b> Kim loại kiềm thổ</p></div></div>
+      <div class="cell" style="grid-column:3;grid-row:5"><div class="num">39</div><div class="sym">Y</div>
+        <div class="tooltip tip"><h3>Ytri (Y)</h3><p><b>Z:</b> 39</p><p><b>Cấu hình e:</b> [Kr] 4d¹ 5s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:4;grid-row:5"><div class="num">40</div><div class="sym">Zr</div>
+        <div class="tooltip tip"><h3>Zirconi (Zr)</h3><p><b>Z:</b> 40</p><p><b>Cấu hình e:</b> [Kr] 4d² 5s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:5;grid-row:5"><div class="num">41</div><div class="sym">Nb</div>
+        <div class="tooltip tip"><h3>Niobi (Nb)</h3><p><b>Z:</b> 41</p><p><b>Cấu hình e:</b> [Kr] 4d⁴ 5s¹</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:6;grid-row:5"><div class="num">42</div><div class="sym">Mo</div>
+        <div class="tooltip tip"><h3>Molipden (Mo)</h3><p><b>Z:</b> 42</p><p><b>Cấu hình e:</b> [Kr] 4d⁵ 5s¹</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:7;grid-row:5"><div class="num">43</div><div class="sym">Tc</div>
+        <div class="tooltip tip"><h3>Techneti (Tc)</h3><p><b>Z:</b> 43</p><p><b>Cấu hình e:</b> [Kr] 4d⁵ 5s²</p><p><b>Loại:</b> Kim loại chuyển tiếp (phóng xạ)</p></div></div>
+      <div class="cell" style="grid-column:8;grid-row:5"><div class="num">44</div><div class="sym">Ru</div>
+        <div class="tooltip tip"><h3>Rutheni (Ru)</h3><p><b>Z:</b> 44</p><p><b>Cấu hình e:</b> [Kr] 4d⁷ 5s¹</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:9;grid-row:5"><div class="num">45</div><div class="sym">Rh</div>
+        <div class="tooltip tip"><h3>Rodi (Rh)</h3><p><b>Z:</b> 45</p><p><b>Cấu hình e:</b> [Kr] 4d⁸ 5s¹</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:10;grid-row:5"><div class="num">46</div><div class="sym">Pd</div>
+        <div class="tooltip tip"><h3>Paladi (Pd)</h3><p><b>Z:</b> 46</p><p><b>Cấu hình e:</b> [Kr] 4d¹⁰</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:11;grid-row:5"><div class="num">47</div><div class="sym">Ag</div>
+        <div class="tooltip tip"><h3>Bạc (Ag)</h3><p><b>Z:</b> 47</p><p><b>Cấu hình e:</b> [Kr] 4d¹⁰ 5s¹</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:12;grid-row:5"><div class="num">48</div><div class="sym">Cd</div>
+        <div class="tooltip tip"><h3>Kadmii (Cd)</h3><p><b>Z:</b> 48</p><p><b>Cấu hình e:</b> [Kr] 4d¹⁰ 5s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:13;grid-row:5"><div class="num">49</div><div class="sym">In</div>
+        <div class="tooltip tip"><h3>Indi (In)</h3><p><b>Z:</b> 49</p><p><b>Cấu hình e:</b> [Kr] 4d¹⁰ 5s² 5p¹</p><p><b>Loại:</b> Kim loại</p></div></div>
+      <div class="cell" style="grid-column:14;grid-row:5"><div class="num">50</div><div class="sym">Sn</div>
+        <div class="tooltip tip"><h3>Thiếc (Sn)</h3><p><b>Z:</b> 50</p><p><b>Cấu hình e:</b> [Kr] 4d¹⁰ 5s² 5p²</p><p><b>Loại:</b> Kim loại</p></div></div>
+      <div class="cell" style="grid-column:15;grid-row:5"><div class="num">51</div><div class="sym">Sb</div>
+        <div class="tooltip tip"><h3>Antimon (Sb)</h3><p><b>Z:</b> 51</p><p><b>Cấu hình e:</b> [Kr] 4d¹⁰ 5s² 5p³</p><p><b>Loại:</b> Bán kim</p></div></div>
+      <div class="cell" style="grid-column:16;grid-row:5"><div class="num">52</div><div class="sym">Te</div>
+        <div class="tooltip tip"><h3>Telur (Te)</h3><p><b>Z:</b> 52</p><p><b>Cấu hình e:</b> [Kr] 4d¹⁰ 5s² 5p⁴</p><p><b>Loại:</b> Phi kim</p></div></div>
+      <div class="cell" style="grid-column:17;grid-row:5"><div class="num">53</div><div class="sym">I</div>
+        <div class="tooltip tip"><h3>Iốt (I)</h3><p><b>Z:</b> 53</p><p><b>Cấu hình e:</b> [Kr] 4d¹⁰ 5s² 5p⁵</p><p><b>Loại:</b> Halogen</p></div></div>
+      <div class="cell" style="grid-column:18;grid-row:5"><div class="num">54</div><div class="sym">Xe</div>
+        <div class="tooltip tip"><h3>Xenon (Xe)</h3><p><b>Z:</b> 54</p><p><b>Cấu hình e:</b> [Kr] 4d¹⁰ 5s² 5p⁶</p><p><b>Loại:</b> Khí hiếm</p></div></div>
+
+      <!-- Period 6 (La row shown as placeholder at col3) -->
+      <div class="cell" style="grid-column:1;grid-row:6"><div class="num">55</div><div class="sym">Cs</div>
+        <div class="tooltip tip"><h3>Cesium (Cs)</h3><p><b>Z:</b> 55</p><p><b>Cấu hình e:</b> [Xe] 6s¹</p><p><b>Loại:</b> Kim loại kiềm</p></div></div>
+      <div class="cell" style="grid-column:2;grid-row:6"><div class="num">56</div><div class="sym">Ba</div>
+        <div class="tooltip tip"><h3>Bari (Ba)</h3><p><b>Z:</b> 56</p><p><b>Cấu hình e:</b> [Xe] 6s²</p><p><b>Loại:</b> Kim loại kiềm thổ</p></div></div>
+      <div class="cell" style="grid-column:3;grid-row:6"><div class="num">57</div><div class="sym">La</div>
+        <div class="tooltip tip"><h3>Lanthan (La)</h3><p><b>Z:</b> 57</p><p><b>Cấu hình e:</b> [Xe] 5d¹ 6s²</p><p><b>Loại:</b> Lanthanoid</p></div></div>
+      <div style="grid-column:4;grid-row:6"></div>
+      <div class="cell" style="grid-column:5;grid-row:6"><div class="num">72</div><div class="sym">Hf</div>
+        <div class="tooltip tip"><h3>Hafni (Hf)</h3><p><b>Z:</b> 72</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d² 6s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:6;grid-row:6"><div class="num">73</div><div class="sym">Ta</div>
+        <div class="tooltip tip"><h3>Tanta (Ta)</h3><p><b>Z:</b> 73</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d³ 6s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:7;grid-row:6"><div class="num">74</div><div class="sym">W</div>
+        <div class="tooltip tip"><h3>Wolfram (W)</h3><p><b>Z:</b> 74</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d⁴ 6s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:8;grid-row:6"><div class="num">75</div><div class="sym">Re</div>
+        <div class="tooltip tip"><h3>Rheni (Re)</h3><p><b>Z:</b> 75</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d⁵ 6s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:9;grid-row:6"><div class="num">76</div><div class="sym">Os</div>
+        <div class="tooltip tip"><h3>Osmium (Os)</h3><p><b>Z:</b> 76</p><p><b>Cấu hình e:</b> [Xe] 4f¹�14 5d⁶ 6s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:10;grid-row:6"><div class="num">77</div><div class="sym">Ir</div>
+        <div class="tooltip tip"><h3>Iridi (Ir)</h3><p><b>Z:</b> 77</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d⁷ 6s²</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:11;grid-row:6"><div class="num">78</div><div class="sym">Pt</div>
+        <div class="tooltip tip"><h3>Platin (Pt)</h3><p><b>Z:</b> 78</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d⁹ 6s¹</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:12;grid-row:6"><div class="num">79</div><div class="sym">Au</div>
+        <div class="tooltip tip"><h3>Vàng (Au)</h3><p><b>Z:</b> 79</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d¹⁰ 6s¹</p><p><b>Loại:</b> Kim loại chuyển tiếp</p></div></div>
+      <div class="cell" style="grid-column:13;grid-row:6"><div class="num">80</div><div class="sym">Hg</div>
+        <div class="tooltip tip"><h3>Thủy ngân (Hg)</h3><p><b>Z:</b> 80</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d¹⁰ 6s²</p><p><b>Loại:</b> Kim loại</p></div></div>
+      <div class="cell" style="grid-column:14;grid-row:6"><div class="num">81</div><div class="sym">Tl</div>
+        <div class="tooltip tip"><h3>Thallium (Tl)</h3><p><b>Z:</b> 81</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹</p><p><b>Loại:</b> Kim loại</p></div></div>
+      <div class="cell" style="grid-column:15;grid-row:6"><div class="num">82</div><div class="sym">Pb</div>
+        <div class="tooltip tip"><h3>Chì (Pb)</h3><p><b>Z:</b> 82</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²</p><p><b>Loại:</b> Kim loại</p></div></div>
+      <div class="cell" style="grid-column:16;grid-row:6"><div class="num">83</div><div class="sym">Bi</div>
+        <div class="tooltip tip"><h3>Bitmut (Bi)</h3><p><b>Z:</b> 83</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³</p><p><b>Loại:</b> Kim loại</p></div></div>
+      <div class="cell" style="grid-column:17;grid-row:6"><div class="num">84</div><div class="sym">Po</div>
+        <div class="tooltip tip"><h3>Poloni (Po)</h3><p><b>Z:</b> 84</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴</p><p><b>Loại:</b> Metalloid/phi kim (tùy nguồn)</p></div></div>
+      <div class="cell" style="grid-column:18;grid-row:6"><div class="num">85</div><div class="sym">At</div>
+        <div class="tooltip tip"><h3>Astatin (At)</h3><p><b>Z:</b> 85</p><p><b>Cấu hình e:</b> [Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵</p><p><b>Loại:</b> Halogen (phóng xạ)</p></div></div>
+
+      <!-- Period 7 (main row), Ac at col3 -->
+      <div class="cell" style="grid-column:1;grid-row:7"><div class="num">87</div><div class="sym">Fr</div>
+        <div class="tooltip tip"><h3>Franci (Fr)</h3><p><b>Z:</b> 87</p><p><b>Cấu hình e:</b> [Rn] 7s¹</p><p><b>Loại:</b> Kim loại kiềm (phóng xạ)</p></div></div>
+      <div class="cell" style="grid-column:2;grid-row:7"><div class="num">88</div><div class="sym">Ra</div>
+        <div class="tooltip tip"><h3>Rađi (Ra)</h3><p><b>Z:</b> 88</p><p><b>Cấu hình e:</b> [Rn] 7s²</p><p><b>Loại:</b> Kim loại kiềm thổ (phóng xạ)</p></div></div>
+      <div class="cell" style="grid-column:3;grid-row:7"><div class="num">89</div><div class="sym">Ac</div>
+        <div class="tooltip tip"><h3>Actini (Ac)</h3><p><b>Z:</b> 89</p><p><b>Cấu hình e:</b> [Rn] 6d¹ 7s²</p><p><b>Loại:</b> Actinoid</p></div></div>
+      <div style="grid-column:4;grid-row:7"></div>
+      <div class="cell" style="grid-column:5;grid-row:7"><div class="num">104</div><div class="sym">Rf</div>
+        <div class="tooltip tip"><h3>Rutherfordi (Rf)</h3><p><b>Z:</b> 104</p><p><b>Cấu hình e:</b> [Rn] 5f¹⁴ 6d² 7s² (approx)</p><p><b>Loại:</b> Kim loại chuyển tiếp (siêu nặng)</p></div></div>
+      <div class="cell" style="grid-column:6;grid-row:7"><div class="num">105</div><div class="sym">Db</div>
+        <div class="tooltip tip"><h3>Dubni (Db)</h3><p><b>Z:</b> 105</p><p><b>Cấu hình e:</b> (ghi chú: siêu nặng)</p></div></div>
+      <div class="cell" style="grid-column:7;grid-row:7"><div class="num">106</div><div class="sym">Sg</div>
+        <div class="tooltip tip"><h3>Seaborgi (Sg)</h3><p><b>Z:</b> 106</p><p><b>Thông tin:</b> Siêu nặng (phóng xạ)</p></div></div>
+      <div class="cell" style="grid-column:8;grid-row:7"><div class="num">107</div><div class="sym">Bh</div>
+        <div class="tooltip tip"><h3>Bohri (Bh)</h3><p><b>Z:</b> 107</p></div></div>
+      <div class="cell" style="grid-column:9;grid-row:7"><div class="num">108</div><div class="sym">Hs</div>
+        <div class="tooltip tip"><h3>Hassium (Hs)</h3><p><b>Z:</b> 108</p></div></div>
+      <div class="cell" style="grid-column:10;grid-row:7"><div class="num">109</div><div class="sym">Mt</div>
+        <div class="tooltip tip"><h3>Meitneri (Mt)</h3><p><b>Z:</b> 109</p></div></div>
+      <div class="cell" style="grid-column:11;grid-row:7"><div class="num">110</div><div class="sym">Ds</div>
+        <div class="tooltip tip"><h3>Darmstadti (Ds)</h3><p><b>Z:</b> 110</p></div></div>
+      <div class="cell" style="grid-column:12;grid-row:7"><div class="num">111</div><div class="sym">Rg</div>
+        <div class="tooltip tip"><h3>Roentgeni (Rg)</h3><p><b>Z:</b> 111</p></div></div>
+      <div class="cell" style="grid-column:13;grid-row:7"><div class="num">112</div><div class="sym">Cn</div>
+        <div class="tooltip tip"><h3>Copernici (Cn)</h3><p><b>Z:</b> 112</p></div></div>
+      <div class="cell" style="grid-column:14;grid-row:7"><div class="num">113</div><div class="sym">Nh</div>
+        <div class="tooltip tip"><h3>Nihoni (Nh)</h3><p><b>Z:</b> 113</p></div></div>
+      <div class="cell" style="grid-column:15;grid-row:7"><div class="num">114</div><div class="sym">Fl</div>
+        <div class="tooltip tip"><h3>Flerovi (Fl)</h3><p><b>Z:</b> 114</p></div></div>
+      <div class="cell" style="grid-column:16;grid-row:7"><div class="num">115</div><div class="sym">Mc</div>
+        <div class="tooltip tip"><h3>Moscovi (Mc)</h3><p><b>Z:</b> 115</p></div></div>
+      <div class="cell" style="grid-column:17;grid-row:7"><div class="num">116</div><div class="sym">Lv</div>
+        <div class="tooltip tip"><h3>Livermori (Lv)</h3><p><b>Z:</b> 116</p></div></div>
+      <div class="cell" style="grid-column:18;grid-row:7"><div class="num">117</div><div class="sym">Ts</div>
+        <div class="tooltip tip"><h3>Tennessini (Ts)</h3><p><b>Z:</b> 117</p></div></div>
+
+      <!-- Row for element 118 in same or next row -->
+      <div style="grid-column:1;grid-row:8"></div>
+      <div style="grid-column:2;grid-row:8"></div>
+      <div style="grid-column:3;grid-row:8"></div>
+      <div style="grid-column:4;grid-row:8"></div>
+      <div style="grid-column:5;grid-row:8"></div>
+      <div style="grid-column:6;grid-row:8"></div>
+      <div style="grid-column:7;grid-row:8"></div>
+      <div style="grid-column:8;grid-row:8"></div>
+      <div style="grid-column:9;grid-row:8"></div>
+      <div style="grid-column:10;grid-row:8"></div>
+      <div style="grid-column:11;grid-row:8"></div>
+      <div style="grid-column:12;grid-row:8"></div>
+      <div style="grid-column:13;grid-row:8"></div>
+      <div style="grid-column:14;grid-row:8"></div>
+      <div style="grid-column:15;grid-row:8"></div>
+      <div style="grid-column:16;grid-row:8"></div>
+      <div style="grid-column:17;grid-row:8"></div>
+      <div class="cell" style="grid-column:18;grid-row:8"><div class="num">118</div><div class="sym">Og</div>
+        <div class="tooltip tip"><h3>Oganesson (Og)</h3><p><b>Z:</b> 118</p><p><b>Cấu hình e:</b> [Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶ (theo lý thuyết)</p><p><b>Loại:</b> Khí hiếm (siêu nặng, phóng xạ)</p></div></div>
+
+    </div>
+
+    <div style="margin-top:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <div class="badge metal">Kim loại</div>
+      <div class="badge metalloid">Bán kim</div>
+      <div class="badge nonmetal">Phi kim</div>
+      <div class="badge noble">Khí hiếm</div>
+      <div class="badge other">Actinoid / Lanthanoid / Siêu nặng</div>
+    </div>
+
+  </div>
+
+  <div style="max-width:360px;flex:0 0 360px">
+    <div class="board" style="padding:12px;">
+      <h3 style="margin-top:0;color:var(--accent)">Hướng dẫn</h3>
+      <p style="font-size:14px;line-height:1.5">Đây là bản <strong>CSS-only</strong> cho Genially (không dùng JavaScript):<br>- Di chuột hoặc Tab vào ô để xem thông tin chi tiết (Tên, Z, cấu hình e, loại).<br>- Nếu bạn muốn mình thêm: phản ứng đặc trưng, cấu hình electron đầy đủ hoặc tô màu theo nhóm chi tiết, mình sẽ cập nhật.</p>
+      <p style="font-size:13px;color:#334155"><b>Lưu ý:</b> một vài nguyên tố siêu nặng (Z&gt;100) có cấu hình lý thuyết hoặc phóng xạ — dữ liệu có thể ghi chú ngắn.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
